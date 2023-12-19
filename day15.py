@@ -23,11 +23,12 @@ for s in inp:
             del boxes[hash(lbl)][lbl]
     else:
         lbl, n = s.split('=')
-        if lbl in boxes[hash(lbl)]:
-            _, y = boxes[hash(lbl)][lbl]
-            boxes[hash(lbl)][lbl] = (int(n), y)
+        box = boxes[hash(lbl)]
+        if lbl in box:
+            _, y = box[lbl]
+            box[lbl] = (int(n), y)
         else:
-            boxes[hash(lbl)][lbl] = (int(n), counter)
+            box[lbl] = (int(n), counter)
             counter += 1
 
 s = 0
