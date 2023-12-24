@@ -73,7 +73,7 @@ zh needs to remember high pulse from all [xc, th, pd, bp]
 each of [xc, th, pd, bp] need to remember low pulse from each of [ps, kh, mk, ml] respectively
 """
 
-targets = ['xc', 'th', 'pd', 'bp']
+targets = ['ps', 'kh', 'mk', 'ml']
 counters = [0, 0, 0, 0]
 
 for k, v in modules.items():
@@ -88,7 +88,7 @@ for count in range(1000000):
         src, inp, pulse = queue.pop(0)
         if src in modules and (ret := modules[src].pulse(inp, pulse)) != None:
             for dst in dests[src]:
-                if dst == 'zh' and ret == HIGH:
+                if src in targets and ret == LOW:
                     counters[targets.index(src)] = count + 1
                 queue.append((dst, src, ret))
     if all(c != 0 for c in counters):
